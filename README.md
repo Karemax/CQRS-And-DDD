@@ -90,7 +90,7 @@ This repository is mainly documented in English for global use.
 
 Clone the repository:
 
-    git clone https://github.com/your-username/CQRS-And-DDD.git
+    git clone https://github.com/Karemax/CQRS-And-DDD.git
    
 Navigate to the project:
 

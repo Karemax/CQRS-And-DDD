@@ -18,6 +18,10 @@ namespace Domain.Entities
         // سعر المنتج ( باستخدام كائن قيمة للتعامل الأفضل مع المال )
         public Money Price { get; private set; }
 
+
+        // EF Core needs this
+        private Product() { }
+
         // Constructor to ensure product always created with values
         // الكونستركتور لضمان أن المنتج دائمًا يتم إنشاؤه ببيانات صحيحة
         public Product(string name, Money price)

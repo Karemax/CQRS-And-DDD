@@ -25,10 +25,11 @@ namespace Infrastructure.EFCore
             // مثال: إعدادات خاصة بالمنتج
             modelBuilder.Entity<Product>(entity =>
             {
-                entity.HasKey(p => p.Id); // Primary Key / المفتاح الأساسي
                 entity.Property(p => p.Name)
                       .IsRequired()       // Required Field / مطلوب
                       .HasMaxLength(200); // Max Length / أقصى طول
+
+                entity.OwnsOne(p => p.Price);
             });
         }
     }

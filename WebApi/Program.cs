@@ -5,6 +5,8 @@ using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using Application.Services;
 using WebAPI.Configurations;
+using Domain.Entities;
+using Domain.ValueObjects;
 
 internal class Program
 {
@@ -17,7 +19,7 @@ internal class Program
         // تسجيل الـ DbContext
         // ---------------------------------------------------
         builder.Services.AddDbContext<StoreDbContext>(options =>
-        options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+                options.UseInMemoryDatabase("AppDb"));
 
         // ---------------------------------------------------
         // Register Controllers
@@ -37,6 +39,36 @@ internal class Program
         // بناء التطبيق
         // ---------------------------------------------------
         var app = builder.Build();
+
+        // Seed sample data
+        using (var scope = app.Services.CreateScope())
+        {
+            var context = scope.ServiceProvider.GetRequiredService<StoreDbContext>();
+            context.Database.EnsureCreated();
+
+            if (!context.Products.Any())
+            {
+                context.Products.AddRange(
+                    new Product("Laptop", new Money(200,"USD")),
+                    new Product("Headphones", new Money(150, "USD"))
+                );
+                context.SaveChanges();
+            }
+        }
+
+        // ---------------------------------------------------
+        // Configure the HTTP request pipeline
+        // تكوين خط أنابيب طلب HTTP
+        // ---------------------------------------------------
+        if (app.Environment.IsDevelopment())
+        {
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "CQRS + DDD API v1");
+                c.RoutePrefix = string.Empty; // Swagger UI at root (localhost:5000)
+            });
+        }
 
         // ---------------------------------------------------
         // Map Controllers

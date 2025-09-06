@@ -5,53 +5,31 @@ It shows how to build a clean, modular, and testable architecture for a simple `
 
 ---
 
-## 📌 Features
-- Domain Layer:
-  - Entities (`Product`)
-  - Value Objects (`Money`)
-  - Domain Events (`ProductCreatedEvent`)
-  - Interfaces (`IProductRepository`)
-- Application Layer:
-  - DTOs (`ProductDto`)
-  - Services (`ProductService`)
-  - Use Cases:
-    - Commands (`AddProductCommand`, `AddProductHandler`)
-    - Queries (`GetProductsQuery`, `GetProductsHandler`)
-- Infrastructure Layer:
-  - EF Core DbContext
-  - Repository Implementation (`ProductRepository`)
-- Web API Layer:
-  - Controller (`ProductsController`)
-  - Service registration (`ServiceCollectionExtensions`)
-- Following **CQRS + DDD principles**
-
----
-
 ## 📂 Project Structure
 
     CQRS-And-DDD
     │
     ├── Application
-    │ ├── DTOs
-    │ ├── Services
-    │ └── UseCases
-    │ └── Products
-    │ ├── Commands
-    │ └── Queries
+    │ ├── DTOs (`ProductDto`)
+    │ ├── Services (`ProductService`)
+     │ └── UseCases
+      │ ├── Commands (`AddProductCommand`, `AddProductHandler`)
+      │ └── Queries (`GetProductsQuery`, `GetProductsHandler`)
+
     │
     ├── Domain
-    │ ├── Entities
-    │ ├── Events
-    │ ├── Interfaces
-    │ └── ValueObjects
+    │ ├── Entities (`Product`)
+    │ ├── Events (`ProductCreatedEvent`)
+    │ ├── Interfaces (`IProductRepository`)
+    │ └── ValueObjects (`ProductCreatedEvent`)
     │
     ├── Infrastructure
-    │ ├── EFCore
-    │ └── Repositories
+    │ ├── EFCore  (`DbContext`)
+    │ └── Repositories (`ProductRepository`)
     │
     └── WebApi
-    ├── Controllers
-    ├── Configurations
+    ├── Controllers (`ProductsController`)
+    ├── Configurations (`ServiceCollectionExtensions`)
     └── appsettings.json
 
 ## 📦 Packages Used
@@ -79,7 +57,7 @@ Building testable and maintainable systems
 
 ## 🌍 Multilingual Note
 
-This repository is mainly documented in English for global use.
+This repository is mainly documented in English and arabic for global use.
 
 لمشروع فيه تعليقات بالعربي والإنجليزي عشان يكون مرجع سهل لأي مطور مبتدئ أو محترف.
 
